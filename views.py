@@ -33,8 +33,8 @@ def criar_imovel():
 
     payload = request.get_json()
 
-    obrigatorios = ["tipo", "cidade", "endereco", "quartos", "banheiros", "area_m2", "preco"]
-    faltando = [c for c in obrigatorios if c not in payload]
+    obrigatorios = ["logradouro", "cidade"]
+    faltando = [c for c in obrigatorios if c not in payload or payload[c] in (None, "")]
     if faltando:
         return jsonify({"error": f"Campos obrigatórios ausentes: {', '.join(faltando)}"}), 400
 
