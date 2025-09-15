@@ -61,8 +61,14 @@ def remover_imovel(imovel_id: int):
 
 @imoveis_bp.get("/imoveis/tipo/<string:tipo>")
 def listar_por_tipo(tipo: str):
-    return jsonify(filter_by_tipo(tipo)), 200
+   #tipo = request.args.get("tipo")
+    if filter_by_tipo(tipo):
+        return jsonify(filter_by_tipo(tipo)), 200
+    return jsonify({"error": "Tipo não encontrado"}), 404
 
 @imoveis_bp.get("/imoveis/cidade/<string:cidade>")
 def listar_por_cidade(cidade: str):
-    return jsonify(filter_by_cidade(cidade)), 200
+    if filter_by_cidade(cidade):
+        return jsonify(filter_by_cidade(cidade)), 200
+    return jsonify({"error": "Cidade não encontrada"}), 404
+
